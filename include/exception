@@ -83,15 +83,15 @@ template <class E> void rethrow_if_nested(const E& e);
 #include <type_traits>
 
 #if defined(_LIBCPP_ABI_MICROSOFT) && !defined(_LIBCPP_NO_VCRUNTIME)
-#if defined(_HAS_EXCEPTIONS)
-#define _LIBCPP_OLD_HAS_EXCEPTIONS _HAS_EXCEPTIONS
+#if defined(_HAS_EXCEPTIONS) && !_HAS_EXCEPTIONS
+#define _LIBCPP_NO_HAS_EXCEPTIONS
 #undef _HAS_EXCEPTIONS
 #define _HAS_EXCEPTIONS 1
 #endif
 #include <vcruntime_exception.h>
-#if defined(_LIBCPP_OLD_HAS_EXCEPTIONS)
+#ifdef _LIBCPP_NO_HAS_EXCEPTIONS
 #undef _HAS_EXCEPTIONS
-#define _HAS_EXCEPTIONS _LIBCPP_OLD_HAS_EXCEPTIONS
+#define _HAS_EXCEPTIONS 0
 #endif
 #endif
 
